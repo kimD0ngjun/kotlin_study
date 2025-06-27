@@ -13,16 +13,3 @@ fun main() {
         println("sad :(")
     }
 }
-
-fun ex1() {
-    try {
-        val result = 5 / 0
-    } catch (ex: Exception) {
-        println("ex1 message: ${ex.message}")
-    }
-}
-
-@Throws
-fun ex2(): Int {
-    return 5 / 0
-}
