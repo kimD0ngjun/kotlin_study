@@ -1,6 +1,8 @@
-import kotlin.jvm.Throws
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 fun main() {
+    // basic kotlin input
     print("input : ")
     val x = readln()
 
@@ -12,4 +14,11 @@ fun main() {
     } else {
         println("sad :(")
     }
+
+    // java BufferedReader
+    val brInput = BufferedReader(InputStreamReader(System.`in`))
+    print("this is buffered reader input : ")
+    val line = brInput.readLine()
+
+    println("your buffered reader input is ${line}")
 }
