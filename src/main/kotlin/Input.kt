@@ -21,4 +21,15 @@ fun main() {
     val line = brInput.readLine()
 
     println("your buffered reader input is ${line}")
+
+    // input is String
+    print("input string : ")
+    val inputString = readln()
+
+//    val isEven = inputString % 2 == 0 // wrong because of type
+
+    val inputInt = inputString.toInt()
+    val isEven = inputInt % 2 == 0
+
+    println("your input value is even : ${isEven}")
 }
