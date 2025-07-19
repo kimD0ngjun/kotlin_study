@@ -40,6 +40,8 @@ fun main() {
         val result3 = when(inputAsInteger) {
             3 -> "this is three"
             5 -> "this is five"
+            in 6 .. 10 -> "this is number between 6 and 10"
+            11, 12, 13 -> "this is.. 11? 12? 13?"
             else -> "this is number"
         }
 
