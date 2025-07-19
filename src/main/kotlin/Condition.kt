@@ -5,6 +5,11 @@ fun main() {
     // result1, result2 둘 다 같은 문법
 
     if (inputAsInteger != null) {
+
+        // 자바의 if는 단순 '문(statement)'인 반면
+        // 코틀린의 if는 표현식(expression)이다. 그래서 변수 할당이 가능하다
+        // 표현식으로 쓰인 if는 무조건 else를 요구한다. 모든 경우에서 값을 변수에 할당해야 하므로
+
         val result1 = if (inputAsInteger % 2 == 0) {
             "this is odd"
         } else if (inputAsInteger < 10) {
