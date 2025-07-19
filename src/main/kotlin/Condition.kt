@@ -18,7 +18,11 @@ fun main() {
         print("output1 : ${result1}\n")
 
         val result2 = when {
-            inputAsInteger % 2 == 0 -> "this is odd"
+            inputAsInteger % 2 == 0 -> {
+                println("람다처럼 보이지만 그저 조건 분기와 결과를 매핑할 뿐, 람다는 아니에요")
+                // 하지만 람다와 유사하게 볼 코틀린만의 논점이 있는데...
+                "this is odd"
+            }
             inputAsInteger < 10 -> "this is smaller than 10"
             inputAsInteger < 100 -> "this is smaller than 100"
             else -> "this is number"
