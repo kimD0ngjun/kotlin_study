@@ -20,8 +20,9 @@ fun main() {
             "this is number"
         }
 
-        print("output1 : ${result1}\n")
+        println("output1 : ${result1}")
 
+        // 계산식 조건용
         val result2 = when {
             inputAsInteger % 2 == 0 -> {
                 println("람다처럼 보이지만 그저 조건 분기와 결과를 매핑할 뿐, 람다는 아니에요")
@@ -33,6 +34,15 @@ fun main() {
             else -> "this is number"
         }
 
-        print("output2 : ${result2}")
+        println("output2 : ${result2}")
+
+        // 값 매칭용
+        val result3 = when(inputAsInteger) {
+            3 -> "this is three"
+            5 -> "this is five"
+            else -> "this is number"
+        }
+
+        println("output3 : ${result3}")
     }
 }
