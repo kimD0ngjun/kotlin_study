@@ -12,5 +12,17 @@ fun main() {
 
     add(1, 2) // 사이드 이펙트용 흘려보내기
     val result = add(5, 10)
-    print("result : ${result}")
+    println("result : ${result}")
+
+    // 자바에는 없는 문제점이 코틀린에 있다
+    // 람다식 내부에서 return 하면 람다만 종료되던 자바와 달리, 코틀린은 non lexical 이슈가 있다
+    // 람다의 return 으로 인해 전체 프로세스 종료 이슈 가능
+
+    val numbers = listOf(1, 2, 3, 4, 5)
+    numbers.forEach {
+        // non lexical 이슈 발생 가능
+        if (it == 3) return@forEach // forEach 람다 내부에서만 종료, 바깥 함수는 계속 진행
+        println(it)
+    }
+    println("끝까지 왔나요?")
 }
