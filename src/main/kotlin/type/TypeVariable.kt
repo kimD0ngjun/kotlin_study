@@ -1,5 +1,7 @@
 package type
 
+// https://developer.android.com/codelabs/kotlin-bootcamp-basics#1
+
 fun main() {
     val i: Int = 15
     println(i::class)
