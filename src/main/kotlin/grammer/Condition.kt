@@ -1,3 +1,5 @@
+package grammer
+
 fun main() {
     val input = readln()
     val inputAsInteger = input.toIntOrNull()
