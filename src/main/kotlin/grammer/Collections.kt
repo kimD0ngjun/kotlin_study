@@ -36,4 +36,21 @@ fun main() {
     println("shapes: $shapes")
     shapes.remove("penta")
     println("shapes: $shapes")
+
+    /*
+    Set
+     */
+    val readOnlyFruit = setOf("apple", "banana", "cherry", "cherry")
+//    readOnlyFruit.add("peach") // 당연히 추가 불가
+    println(readOnlyFruit)
+
+    val fruit: MutableSet<String> = mutableSetOf("apple", "banana", "cherry", "cherry")
+    fruit.add("peach")
+    val noMutableFruits: Set<String> = fruit
+//    noMutableFruits.add("peach") // 당연히 추가 불가
+    println(fruit.remove("something")) // false 나올 거
+    println(fruit.size)
+    println("apple" in fruit)
+
+
 }
