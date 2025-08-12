@@ -52,5 +52,30 @@ fun main() {
     println(fruit.size)
     println("apple" in fruit)
 
+    /*
+    Map
+     */
+    val readOnlyJuiceMenu = mapOf("apple" to 100, "kiwi" to 190, "orange" to 100)
+    // key to value... 오...
+    println(readOnlyJuiceMenu)
 
+    val menu = mutableMapOf("apple" to 100, "kiwi" to 190, "orange" to 100)
+    menu["meat"] = 30000
+    println(menu)
+    println(menu.remove("meat")) // 삭제된 key의 value를 반환
+    println(menu.remove("meat")) // null 반환
+
+    val noMutableMenu: Map<String, Int> = menu
+//    noMutableMenu.remove("some menu")
+//    noMutableMenu["some menu"] = 200000
+    println(noMutableMenu)
+
+    // key 존재여부
+    println("apple" in menu)
+    println("no menu" in menu.keys)
+    println(menu.containsKey("apple"))
+
+    // value 존재여부
+    println(200 in menu.values)
+    println(menu.containsValue(190))
 }
