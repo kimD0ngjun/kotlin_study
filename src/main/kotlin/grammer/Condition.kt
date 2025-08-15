@@ -100,5 +100,9 @@ fun main() {
     val text = if (a > b) "더 큰 숫자는 $a" else "아니, 더 큰 숫자는 $b"
     println(text)
 
+    // 변수 할당도 없는 표현식
+    // 파라미터에 값처럼 넘겨질 수 있으니 표현식이 맞음
+    println(if (a > b) "더 큰 숫자는 $a" else "아니, 더 큰 숫자는 $b")
+
 
 }
