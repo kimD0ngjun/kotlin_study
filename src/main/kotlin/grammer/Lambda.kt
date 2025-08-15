@@ -7,6 +7,10 @@ package grammer// 자바는 형식을 중요시함
 // 블록 형태 역시 지원되며 마지막 라인이 자연스럽게 return 적용
 // 만약 Unit(무의미한 값)이어도 그냥 흘려보내면 끝
 
+/**
+ * lambda는 중괄호 안에 꼭 적을 것
+ */
+
 fun main() {
     val add: (Int, Int) -> Int = { a, b -> a + b } // 코틀린은 블록으로 감싸네...
 
@@ -25,4 +29,35 @@ fun main() {
         println(it)
     }
     println("끝까지 왔나요?")
+
+    println(upperFun("hello"))
+
+    val upperLambda = {text: String -> text.uppercase()}
+    println(upperLambda("hello"))
+
+    // -> 없이 쓰는 람다, 파라미터가 없는 람다
+    val printer = {println("no parameter")}
+    printer()
+
+    // 람다니까 다른 함수의 콜백 파라미터로 전달도 가능
+    val nums = listOf(1, -2, 3, -4, 5, 6)
+    val positive = nums.filter({x -> x > 0})
+    val isNegative = {x: Int -> x < 0}
+    val negative = nums.filter(isNegative)
+    println(positive)
+    println(negative)
+
+    val doubled = nums.map { x -> x * 2 }
+
+    val isTripled = { x: Int -> x * 3 }
+    val tripled = nums.map(isTripled)
+
+    println(doubled)
+    println(tripled)
+
+    // https://kotlinlang.org/docs/kotlin-tour-functions.html#function-types
+}
+
+fun upperFun(text: String): String {
+    return text.uppercase()
 }
