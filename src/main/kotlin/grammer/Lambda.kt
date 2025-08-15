@@ -56,8 +56,44 @@ fun main() {
     println(tripled)
 
     // https://kotlinlang.org/docs/kotlin-tour-functions.html#function-types
+    // 함수 타입
+    val plusOne: (Int) -> Int = {x -> x + 1}
+    val unitPrint: () -> Unit = {-> println("unit return type")}
+
+    println(plusOne(1))
+    unitPrint()
+
+    // 매개변수 및 반환 유형을 람다 표현식 또는 함수 유형으로 선언해야 합니다.
+    // 그렇지 않으면 컴파일러가 람다 표현식이 어떤 유형인지 알 수 없습니다.(타입 추론의 한계)
+    // 예를 들어 다음은 작동하지 않습니다(Cannot infer a type for this parameter. Please specify it explicitly.)
+//    val upperCaseString = { str -> str.uppercase() }
+
+    val times = listOf(12, 2, 10, 5, 59)
+    println("전체 분 총합시간은 ${times.map(toSeconds("minute")).sum()}")
+
+    // The initial value is zero.
+    // The operation sums the initial value with every item in the list cumulatively.
+    println(listOf(1, 2, 3).fold(0, { x, item -> x + item })) // 6
+
+    // Alternatively, in the form of a trailing lambda(후행 람다)
+    // 함수가 호출하는 함수를 중괄호로 분리하여 가독성 업
+    // 함수의 마지막 파라미터가 함수이면, 람다 표현식을 괄호 밖에 배치할 수 있다
+    println(listOf(1, 2, 3).fold(0, { x, item -> x + item})) // 6
+    println(listOf(1, 2, 3).fold(0) { x, item -> x + item })  // 6(후행 람다)
 }
 
 fun upperFun(text: String): String {
     return text.uppercase()
 }
+
+
+// 람다를 반환하는 함수도 가능
+fun toSeconds(time: String): (Int) -> Int = when (time) {
+    "minute" -> {value -> value * 60}
+    "hour" -> {value -> value * 60 * 60}
+    "second" -> {value -> value}
+    else -> {value -> value}
+}
+
+// https://kotlinlang.org/docs/lambdas.html#lambda-expressions-and-anonymous-functions
+// 나중에 참조해보기
