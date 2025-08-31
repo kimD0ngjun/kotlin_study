@@ -36,5 +36,12 @@ fun main() {
 
     // 엘비스 연산자(null이 나올 경우를 대비한 디폴트값 할당)
     var nullableString: String? = null
+    // nullableString?.length ?: 0
+    // nullableString이 null이거나, nullableString은 null이 아니지만 .length가 null이거나
     println("널 가능한 문자열의 길이: ${nullableString?.length ?: 0}")
+
+    val city = City("Seoul")
+    println("도시 정보 : ${city?.name ?: "도시 어딘가"}")
 }
+
+data class City(val name: String)
