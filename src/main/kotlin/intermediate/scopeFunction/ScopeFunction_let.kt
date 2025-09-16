@@ -1,4 +1,4 @@
-package intermediate
+package intermediate.scopeFunction
 
 // https://kotlinlang.org/docs/kotlin-tour-intermediate-scope-functions.html#scope-functions
 /**
