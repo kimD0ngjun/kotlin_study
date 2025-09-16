@@ -1,5 +1,3 @@
-package versus;
-
 class AquariumJava {
 
     private int mTemperature;
