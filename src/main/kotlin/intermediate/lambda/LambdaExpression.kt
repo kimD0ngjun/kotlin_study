@@ -26,3 +26,36 @@ val appendHello: StringBuilder.() -> Unit = {
  */
 val example: MutableList<Int>.() -> Unit = {
 }
+
+class Canvas {
+    fun drawCircle() = println("🟠 Drawing a circle")
+    fun drawSquare() = println("🟥 Drawing a square")
+}
+
+// 리시버 포함 람다 표현식 작성
+fun render(block: Canvas.() -> Unit): Canvas {
+    val canvas = Canvas()
+    // block 람다 호출
+    canvas.block()
+    return canvas
+}
+
+/**
+ * 람다 블록에서 ->는 “파라미터 이름과 본문을 가르는 구분자”
+ * 따라서 파라미터가 없으면 ->도 없다
+ * 단일 파라미터는 it으로 축약 가능
+ * 리시버는 this로 접근, ->와는 무관
+ */
+fun main() {
+    render {
+        // 리시버의 멤버들 호출 가능
+        /**
+         * 리시버 있는 람다 = 확장 함수 문법과 비슷
+         * 블록 안에서 this는 곧 리시버 객체
+         * 대부분 생략 가능, 자바 클래스의 this 생략과 동일하게 생각해도 무방
+         * 단, 여러 리시버가 겹치는 상황에서는 this@리시버명을 써서 구분
+         */
+        drawCircle()
+        this.drawSquare()
+    }
+}
