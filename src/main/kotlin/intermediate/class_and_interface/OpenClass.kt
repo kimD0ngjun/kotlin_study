@@ -46,6 +46,32 @@ class Child: Parent() {
 open class KotlinParent(val name: String, val gender: String, val nation: String = "World")
 class KotlinChild(name: String, gender: String, val age: Int): KotlinParent(name, gender, "Korea")
 
+interface A {
+    val a1: String
+    fun a(): Unit
+}
+interface B {
+    val b1: String
+    fun b(): Unit
+}
+
+open class C(val p1: String, val p2: String)
+open class C2(p1: String, p2: String, val p3: Int): C(p1, p2)
+
+// 이런 식으로 인터페이스들과 오픈 클래스를 짬뽕 상속 구현받을 수도 있음
+class Real(
+    p1: String,
+    p2: String,
+    p3: Int,
+    val p4: Double,
+    val p5: String
+): C2(p1, p2, p3), A, B {
+    override val a1: String = "a1"
+    override val b1: String = "b1"
+    override fun a(): Unit = println("a")
+    override fun b(): Unit = println("b")
+}
+
 fun main() {
     val car = Car("도요타", "벤츠", 4)
     println("제조사 : ${car.make}\n모델명 : ${car.model}\n문 갯수: ${car.numberOfDoors}")
