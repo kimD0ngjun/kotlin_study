@@ -41,8 +41,21 @@ enum class State(val state: String) {
     fun introduce(): Unit = println("나는 현재 $state 상태다.")
 }
 
+/**
+ * 코드를 작성할 때 가끔 클래스로부터 작은 객체를 생성하여 잠시만 사용해야 할 때가 있음
+ * 예를 들면 토큰 인증 방식에서 뭐가 엑세스 토큰이고 뭐가 리프레시 토큰인지 감싸기 위한..?
+ * 근데 지속적으로 이렇게 접근하면 성능에 영향을 미칠 수 있음
+ * value class(구 inline class)는 이러한 성능 저하를 피하는 특수한 유형의 클래스
+ * 다만, 오로지 한 개의 값 필드만 포함 가능
+ */
+@JvmInline
+value class AccessToken(val token: String)
+@JvmInline
+value class RefreshToken(val token: String)
+
 fun main() {
     println(hello(Human("김동준", "백수")))
+
     /**
      * enum class의 생성자는 외부 호출용이 아닌 enum 상수 정의할 때 내부저으로 호출되는 용도
      */
@@ -53,4 +66,20 @@ fun main() {
     runningState.introduce() // 이미 클래스 로딩될 때 생성된 내부 인스턴스를 참조하는 것에 불과
     val ridingState = State.RIDING
     ridingState.introduce() // 이미 클래스 로딩될 때 생성된 내부 인스턴스를 참조하는 것에 불과
+
+    // 생명주기는 자바의 원시 타입과 거의 흡사하다
+    // 값 전달 되는 것처럼 처리되며, 스택에 올라갔다 내려가기 때문에 GC의 힙 정리 대상조차 아님
+    // 컬렉션 요소로 쓰이면 최소한의 래핑은 생기긴 하지만 그래도 오버헤드 최소화
+    val accessToken = AccessToken("12345")
+    val refreshToken = RefreshToken("1a2s3f")
+    println("엑세스토큰 값: $accessToken \n리프레시토큰 값: $refreshToken")
 }
+
+/**
+ * 참고로, 코틀린은 겉보기로는 타입이 오로지 클래스처럼 다뤄짐(원시, 참조 구별 x)
+ * Int -> int
+ * Double -> double
+ * Boolean -> boolean
+ * String -> String(객체)
+ * nullable Int인 Int? -> Integer(객체, null 허용을 위한 박싱)
+ */
