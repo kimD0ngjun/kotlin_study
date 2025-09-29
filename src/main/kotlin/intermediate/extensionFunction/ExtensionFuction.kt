@@ -1,4 +1,4 @@
-package intermediate
+package intermediate.extensionFunction
 
 // 기존 자바에서는 기존 클래스에 함수를 추가하려면 상속이나 직접 OCP 위반하던지 등등...
 // 근데 그건 그렇고, 만약 외부 라이브러리 같은 경우면 더 추가하기 빡세짐
