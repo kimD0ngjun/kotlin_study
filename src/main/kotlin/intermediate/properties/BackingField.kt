@@ -1,4 +1,4 @@
-package intermediate.class_and_interface
+package intermediate.properties
 
 // https://kotlinlang.org/docs/kotlin-tour-intermediate-properties.html
 
