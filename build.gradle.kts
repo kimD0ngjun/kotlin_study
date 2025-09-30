@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.9.0"
+    kotlin("jvm") version "2.2.20"
     application
 }
 
@@ -13,6 +13,8 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation(kotlin("script-runtime"))
+
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
 }
 
 tasks.test {
@@ -20,7 +22,7 @@ tasks.test {
 }
 
 kotlin {
-    jvmToolchain(8)
+    jvmToolchain(21)
 }
 
 application {
