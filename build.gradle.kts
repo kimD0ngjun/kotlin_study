@@ -15,6 +15,7 @@ dependencies {
     implementation(kotlin("script-runtime"))
 
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2") // 코루틴
 }
 
 tasks.test {
