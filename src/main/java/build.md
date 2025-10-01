@@ -1,5 +1,5 @@
 인텔리제이와 다르게 Gradle은 멍청해서...
-- Kotlin 코드 → `src/main/kotlin` 경로 세팅
-- Java 코드 → `src/main/java` 경로 세팅
+- Kotlin 코드 → `src/corutines.main/kotlin` 경로 세팅
+- Java 코드 → `src/corutines.main/java` 경로 세팅
 
 그래서 자바 코드는 기왕이면 자바 경로에 작성하자...
