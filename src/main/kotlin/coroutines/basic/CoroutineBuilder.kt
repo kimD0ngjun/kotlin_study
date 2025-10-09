@@ -85,6 +85,7 @@ suspend fun asyncWork() = withContext(Dispatchers.Default) {
 
 // 수정 불가능한 서드파티 인터페이스 예시
 interface Repository {
+    // suspend 키워드가 안 붙었으니 코루틴 비동기 함수를 호출할 수 없겠지만....
     fun readItem(): Int
 }
 
