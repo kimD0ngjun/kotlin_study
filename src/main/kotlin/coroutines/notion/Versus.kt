@@ -1,4 +1,4 @@
-package corutines.notion
+package coroutines.notion
 
 import kotlinx.coroutines.*
 import kotlin.concurrent.thread

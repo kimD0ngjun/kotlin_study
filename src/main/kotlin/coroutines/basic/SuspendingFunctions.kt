@@ -1,4 +1,4 @@
-package corutines.basic
+package coroutines.basic
 
 // https://kotlinlang.org/docs/coroutines-basics.html#suspending-functions
 /**

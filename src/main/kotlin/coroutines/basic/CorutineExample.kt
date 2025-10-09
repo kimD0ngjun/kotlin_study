@@ -1,4 +1,4 @@
-package corutines.basic
+package coroutines.basic
 
 import kotlinx.coroutines.*
 import kotlin.time.Duration.Companion.seconds
