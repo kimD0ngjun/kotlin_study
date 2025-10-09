@@ -1,5 +1,6 @@
 package coroutines.basic
 
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -45,6 +46,8 @@ suspend fun main() {
             delay(1.seconds)
             println("자식2 코루틴 완료")
         }
+
+        launchChild()
     }
 
     // 코루틴 스코프 블록의 모든 자식들이 종료되고 나서 실행
@@ -55,4 +58,10 @@ suspend fun main() {
      * 손자 코루틴 완료
      * 코루틴 스코프 종료
      */
+}
+
+// 확장함수 기반 코루틴 스코프 블록 내 자식 코루틴 정의
+fun CoroutineScope.launchChild() {
+    this.launch { println("확장 함수에서 코루틴 완료1") }
+    this.launch { println("확장 함수에서 코루틴 완료2") }
 }
