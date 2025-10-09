@@ -6,6 +6,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -26,6 +27,11 @@ suspend fun main() {
      * 두 번째 페이지
      * 첫 번째 페이지
      * 같은 페이지일까요? : false
+     */
+
+    MyRepository.readItem()
+    /**
+     * 비동기 실행
      */
 }
 
@@ -70,4 +76,30 @@ suspend fun asyncWork() = withContext(Dispatchers.Default) {
     // 다만 스레드 블로킹을 하지 않고 그냥 코루틴만 중단(suspend)한다
     val pagesAreEqual: Boolean = firstPage.await() == secondPage.await()
     println("같은 페이지일까요? : $pagesAreEqual")
+}
+
+/**
+ * 3) runBlocking() -> 얘는 suspend가 아니라 블로킹 함수. 즉, 스레드 블로킹을 유발함
+ * 내부적으로 코루틴을 생성한다는 점에선 코루틴 빌더지만, 결과를 기다리는 동안 '스레드를 블로킹'한다는 점이 특이한 부분
+ */
+
+// 수정 불가능한 서드파티 인터페이스 예시
+interface Repository {
+    fun readItem(): Int
+}
+
+object MyRepository: Repository {
+    // readItem()은 동기 함수지만 내부적으로는 코루틴 기반 비동기 처리를 수행
+    override fun readItem(): Int {
+        // runBlocking()이 일반 함수(블로킹 코드) 내에서도 코루틴을 실행하게 한다
+        return runBlocking {
+            myReadItem()
+        }
+    }
+}
+
+suspend fun myReadItem(): Int {
+    delay(100.milliseconds)
+    println("비동기 실행")
+    return 4
 }
