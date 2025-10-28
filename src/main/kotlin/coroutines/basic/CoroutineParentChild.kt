@@ -1,5 +1,7 @@
 package coroutines.basic
 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -7,8 +9,11 @@ import kotlinx.coroutines.runBlocking
 
 fun main() {
 //    notion()
-//    downwardCancel()
-    upwardCancel()
+//    defaultCancel()
+//    upwardCancel()
+//    launchException()
+//    asyncException()
+    globalScopeException()
 }
 
 /** *
@@ -45,7 +50,7 @@ fun notion() = runBlocking {
  * 취소 전파
  * - 기본적으로 부모 -> 자식 방향으로 취소가 전파됨(하향식 취소 전파)
  */
-fun downwardCancel() = runBlocking {
+fun defaultCancel() = runBlocking {
     val parent = launch {
         val child = launch {
             try {
@@ -93,4 +98,80 @@ fun upwardCancel() = runBlocking {
 
     parent.join()
     println("모든 코루틴 스코프 종료")
+}
+
+/**
+ * 예외 전파
+ * - 기본적으로 자식 -> 부모 방향으로 예외가 전파됨(상향식 예외 전파)
+ * 근데 launch랑 async가 조금 취급이 다름
+ */
+fun launchException() = runBlocking {
+    val parent = launch {
+        val child = launch {
+            println("자식 시작")
+            delay(500)
+            throw RuntimeException("자식 예외 발생!")
+        }
+
+//        try {
+//            child.join() // 예외는 join 시점, 즉 코루틴 종료 시에 부모로 재전달됨
+//        } catch (e: Exception) {
+//            println("부모가 자식 예외 감지: $e")
+//        }
+
+        // try catch로 자식의 예외 가능성을 잘 제어하지 않으면 부모까지 다 전파돼서 부모 코루틴 스코프도 강제 종료된다
+        repeat(10) {
+            delay(200)
+            println("부모 $it 번째 작업 수행 중...")
+        }
+    }
+
+    parent.join()
+    println("전체 코루틴 스코프 종료")
+}
+
+// async는 어쨌든 결과를 반환함. 즉, Deferred 객체에 결과를 담는데, 그 결과가 예외가 된 것일 뿐
+// 그래서 await() 시점에 예외가 부모 스코프에 전파된다.
+fun asyncException() = runBlocking {
+    val deferred = async {
+        println("자식 async 시작")
+        throw RuntimeException("비동기 예외")
+    }
+
+    /**
+     * 하지만 구조적 동시성에서 부모 스코프에 속한 async는 예외 발생 즉시 부모 Job을 취소
+     * 그래서 이 밑까지 도달할 수 없는 것임
+     */
+
+    // 아직 예외 안 남
+    repeat(5) {
+        delay(100)
+        println("부모 $it 번쨰 작업 : 자식 await 전엔 아무 일 없음")
+    }
+
+    try {
+        deferred.await() // 이때 예외가 던져지는 게 이론적으로 맞음 하지만...
+    } catch (e: Exception) {
+        println("await에서 예외 감지: $e")
+    }
+}
+
+/**
+ * 근데 GlobalScope는 좀 희한함(구조화된 동시성을 포기한 형태)
+ */
+fun globalScopeException() = runBlocking {
+    // 자식과 부모의 관계를 완전히 끊어버려서 구조화된 동시성이 아님
+    // 그래서 자식에서 예외가 터져도 부모가 휩쓸리지 않는다
+    val child = GlobalScope.launch {
+        println("자식(GlobalScope) 시작")
+        throw RuntimeException("자식 예외")
+    }
+
+    repeat(5) {
+        delay(100)
+        println("부모 반복 : $it")
+    }
+
+    println("부모 반복 끝")
+    delay(500) // 자식이 끝날 때까지 잠시 대기
 }
